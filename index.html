@@ -58,7 +58,7 @@
     /* Header */
     .header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .badge {
@@ -104,12 +104,62 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       max-width: 540px;
-      margin: 0 auto 16px auto;
+      margin: 0 auto 14px auto;
+    }
+
+    /* Personalized Pre-Loaded Item Banner */
+    .preloaded-banner {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(99, 102, 241, 0.15));
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .preloaded-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+
+    .preloaded-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .privacy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: #94A3B8;
+      background: rgba(10, 15, 26, 0.6);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 4px;
+    }
+
+    .privacy-badge strong {
+      color: #38BDF8;
     }
 
     /* 1-Tap Benchmark Button */
     .benchmark-bar {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       display: flex;
       justify-content: center;
     }
@@ -164,7 +214,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       padding: 4px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       gap: 4px;
     }
 
@@ -223,6 +273,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      position: relative;
     }
 
     label {
@@ -243,6 +294,25 @@
       position: relative;
       display: flex;
       align-items: center;
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+
+    .input-wrapper.highlight-focus {
+      box-shadow: 0 0 0 2px var(--cyan), 0 0 15px rgba(6, 182, 212, 0.35);
+    }
+
+    .cogs-hint-badge {
+      display: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      border-radius: 6px;
+      padding: 3px 6px;
+      margin-top: 4px;
+      text-align: center;
     }
 
     .prefix {
@@ -414,7 +484,7 @@
       line-height: 1.4;
     }
 
-    /* Two-Column Comparison Grid */
+    /* Two-Column Side-by-Side Comparison Grid */
     .comparison-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -546,12 +616,12 @@
       color: #FCA5A5;
     }
 
-    /* Detailed Breakdown Collapsible */
+    /* Detailed Breakdown Section */
     .breakdown-section {
       background: rgba(10, 15, 26, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       font-size: 0.8rem;
     }
 
@@ -561,14 +631,18 @@
       text-transform: uppercase;
       font-size: 0.7rem;
       letter-spacing: 0.05em;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .breakdown-row {
       display: flex;
       justify-content: space-between;
-      padding: 4px 0;
+      padding: 5px 0;
       color: #94A3B8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     }
 
     .breakdown-row span:last-child {
@@ -576,11 +650,30 @@
       color: #E2E8F0;
     }
 
+    .breakdown-row.highlight-shipping {
+      background: rgba(239, 68, 68, 0.06);
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin: 4px 0;
+      border: 1px dashed rgba(239, 68, 68, 0.3);
+    }
+
+    .breakdown-row.highlight-shipping span:first-child {
+      color: #FCA5A5;
+      font-weight: 600;
+    }
+
+    .breakdown-row.highlight-shipping span:last-child {
+      color: #F87171;
+      font-weight: 800;
+    }
+
     .breakdown-row.accent {
       font-weight: 700;
       color: #FFFFFF;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      padding-top: 8px;
       margin-top: 4px;
     }
 
@@ -674,9 +767,19 @@
         <div class="pulse-dot"></div>
         BLACK FRIDAY 2026 PROFIT SHIELD
       </div>
-      <h1>Black Friday Fee & Safe-Discount Checker</h1>
+      <h1 id="mainHeading">Black Friday Fee & Safe-Discount Checker</h1>
       <p class="subtitle">See your exact take-home cash after Etsy or Shopify transaction fees, postage, and offsite ad cuts.</p>
     </header>
+
+    <!-- Personalized Pre-Loaded Item Banner (Visible when ?item= exists) -->
+    <div class="preloaded-banner" id="preloadedBanner" style="display: none;">
+      <span class="preloaded-tag">🎯 Pre-Loaded For Your Item</span>
+      <div class="preloaded-title" id="preloadedTitle">Checking: Ceramic Mug ($25 at 30% Off)</div>
+      <div class="privacy-badge">
+        <span>🔒</span>
+        <span><strong>100% Private:</strong> Runs locally in your browser. Zero login, zero email, your costs never leave your device.</span>
+      </div>
+    </div>
 
     <!-- 1-Tap Example Bar -->
     <div class="benchmark-bar">
@@ -713,7 +816,7 @@
       <div class="input-grid">
         <div class="input-group">
           <label for="price">Regular Price <span class="label-hint">Retail</span></label>
-          <div class="input-wrapper">
+          <div class="input-wrapper" id="priceWrapper">
             <span class="prefix">$</span>
             <input type="number" id="price" value="24.00" min="1" step="0.50">
           </div>
@@ -721,15 +824,16 @@
 
         <div class="input-group">
           <label for="cogs">Item Cost <span class="label-hint">Materials & Box</span></label>
-          <div class="input-wrapper">
+          <div class="input-wrapper" id="cogsWrapper">
             <span class="prefix">$</span>
             <input type="number" id="cogs" value="8.50" min="0" step="0.25">
           </div>
+          <div class="cogs-hint-badge" id="cogsHintBadge">👈 Only adjust your private cost to make here</div>
         </div>
 
         <div class="input-group">
           <label for="shipping">Postage Paid <span class="label-hint">By Seller</span></label>
-          <div class="input-wrapper">
+          <div class="input-wrapper" id="shippingWrapper">
             <span class="prefix">$</span>
             <input type="number" id="shipping" value="5.00" min="0" step="0.25">
           </div>
@@ -828,9 +932,12 @@
         </div>
       </div>
 
-      <!-- Cost Summary Line -->
+      <!-- Cost Summary Line & Hidden Shipping Fee Exposer -->
       <div class="breakdown-section">
-        <div class="breakdown-header">Order Cost Breakdown</div>
+        <div class="breakdown-header">
+          <span>Order Cost Breakdown</span>
+          <span style="font-size: 0.68rem; color: #64748B;">Official 2026 Fee Truth</span>
+        </div>
         <div class="breakdown-row">
           <span>Original List Price:</span>
           <span id="rowOrigPrice">$24.00</span>
@@ -847,6 +954,11 @@
           <span>Postage Paid by Seller:</span>
           <span id="rowShipping">-$5.00</span>
         </div>
+        <!-- Explicit Hidden Shipping Fee Cut Line -->
+        <div class="breakdown-row highlight-shipping" id="rowShippingFeeRow">
+          <span>Hidden Platform Fee on Shipping:</span>
+          <span id="rowShippingFeeCut">-$0.48 (Std) / -$1.23 (15% Ad)</span>
+        </div>
         <div class="breakdown-row accent">
           <span>Customer Checkout Total:</span>
           <span id="rowFinalSale">$16.80</span>
@@ -854,16 +966,16 @@
       </div>
     </main>
 
-    <p class="footer-note">Client-Side Calculation • No Email Required • Tested Against Official 2026 Fee Schedules</p>
+    <p class="footer-note">Client-Side Calculation • No Email Required • 100% Private In-Browser Math</p>
   </div>
 
-  <!-- Bottom Sticky Bridge CTA -->
+  <!-- Bottom Sticky Bridge CTA with UTM Pass-Through -->
   <aside class="sticky-bridge">
     <div class="bridge-content">
       <span class="bridge-tag">⚡ BFCM PROFIT-SHIELD ENGINE</span>
       <span class="bridge-text">Check 50 products at once + get 7 Black Friday emails ($19 Launch Offer — saves $10 through Dec 1)</span>
     </div>
-    <a href="https://kamranite865.gumroad.com/l/bfcm-profit-margin-calculator/BFCM19?utm_source=github_tool&utm_medium=free_calc&utm_campaign=bfcm_2026" class="bridge-btn" id="gumroadBridgeBtn" target="_blank" rel="noopener">
+    <a href="https://kamranite865.gumroad.com/l/bfcm-profit-margin-calculator/BFCM19?utm_source=calc_direct&utm_medium=preloaded_tool&utm_campaign=bfcm_2026" class="bridge-btn" id="gumroadBridgeBtn" target="_blank" rel="noopener">
       Get Multi-SKU Shield ($19) →
     </a>
   </aside>
@@ -886,6 +998,12 @@
     const tier15Btn = document.getElementById('tier15Btn');
     const tier12Btn = document.getElementById('tier12Btn');
     const loadBenchmarkBtn = document.getElementById('loadBenchmarkBtn');
+
+    const preloadedBanner = document.getElementById('preloadedBanner');
+    const preloadedTitle = document.getElementById('preloadedTitle');
+    const cogsWrapper = document.getElementById('cogsWrapper');
+    const cogsHintBadge = document.getElementById('cogsHintBadge');
+    const gumroadBridgeBtn = document.getElementById('gumroadBridgeBtn');
 
     const alertBanner = document.getElementById('alertBanner');
     const alertTitle = document.getElementById('alertTitle');
@@ -921,6 +1039,7 @@
     const rowDiscount = document.getElementById('rowDiscount');
     const rowCogs = document.getElementById('rowCogs');
     const rowShipping = document.getElementById('rowShipping');
+    const rowShippingFeeCut = document.getElementById('rowShippingFeeCut');
     const rowFinalSale = document.getElementById('rowFinalSale');
 
     function formatMoney(num) {
@@ -952,6 +1071,12 @@
         const stdFees = (salePrice * stdFeeRate) + stdFixed;
         const stdNet = salePrice - cogs - shipping - stdFees;
         const stdMargin = salePrice > 0 ? (stdNet / salePrice) * 100 : 0;
+
+        // Hidden Shipping Fee Cut on Etsy (Etsy charges transaction & processing on shipping)
+        const shipCutStd = shipping * stdFeeRate;
+        const shipCutAd = shipping * (stdFeeRate + offsiteRate);
+        const pctLabel = (offsiteRate * 100).toFixed(0) + '%';
+        rowShippingFeeCut.textContent = '-$' + shipCutStd.toFixed(2) + ' (Std) / -$' + shipCutAd.toFixed(2) + ' (' + pctLabel + ' Ad)';
 
         // Break-even for Standard
         const stdDenom = 1 - stdFeeRate; // 0.905
@@ -985,7 +1110,6 @@
         // Render Col 2 (Offsite Ad)
         col2Card.style.display = 'flex';
         col2Badge.textContent = 'Ad-Attributed';
-        const pctLabel = (offsiteRate * 100).toFixed(0) + '%';
         col2AdRateTag.textContent = pctLabel + ' OFFSITE AD';
         col2Title.textContent = 'Etsy + ' + pctLabel + ' Ad Order';
         col2Net.textContent = formatMoney(adNet);
@@ -1025,6 +1149,10 @@
         const shopifyFees = (salePrice * shopifyRate) + shopifyFixed;
         const shopifyNet = salePrice - cogs - shipping - shopifyFees;
         const shopifyMargin = salePrice > 0 ? (shopifyNet / salePrice) * 100 : 0;
+
+        // Hidden shipping cut on Shopify
+        const shipCutShopify = shipping * shopifyRate;
+        rowShippingFeeCut.textContent = '-$' + shipCutShopify.toFixed(2) + ' (Shopify 2.9%)';
 
         const shopifyDenom = 1 - shopifyRate; // 0.971
         const shopifyBreakEvenPrice = (cogs + shipping + shopifyFixed) / shopifyDenom;
@@ -1133,7 +1261,60 @@
     shippingInput.addEventListener('input', calculate);
     discountSlider.addEventListener('input', calculate);
 
-    // Initial calculation
+    // ==========================================
+    // URL PRE-LOADER & UTM PASS-THROUGH LOGIC
+    // ==========================================
+    function initUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const itemParam = urlParams.get('item');
+      const priceParam = urlParams.get('price');
+      const discParam = urlParams.get('disc');
+      const shipParam = urlParams.get('ship');
+      const srcParam = urlParams.get('src') || 'direct';
+
+      // 1. UTM Pass-Through to Gumroad $19 Checkout Button
+      if (gumroadBridgeBtn) {
+        gumroadBridgeBtn.href = `https://kamranite865.gumroad.com/l/bfcm-profit-margin-calculator/BFCM19?utm_source=calc_${encodeURIComponent(srcParam)}&utm_medium=preloaded_tool&utm_campaign=bfcm_2026`;
+      }
+
+      // 2. Pre-Load Item Data if Provided
+      if (priceParam || itemParam) {
+        if (priceParam) {
+          const parsedPrice = parseFloat(priceParam);
+          if (!isNaN(parsedPrice) && parsedPrice > 0) {
+            priceInput.value = parsedPrice.toFixed(2);
+          }
+        }
+        if (discParam) {
+          const parsedDisc = parseInt(discParam, 10);
+          if (!isNaN(parsedDisc) && parsedDisc >= 0 && parsedDisc <= 100) {
+            discountSlider.value = parsedDisc;
+          }
+        }
+        if (shipParam) {
+          const parsedShip = parseFloat(shipParam);
+          if (!isNaN(parsedShip) && parsedShip >= 0) {
+            shippingInput.value = parsedShip.toFixed(2);
+          }
+        }
+
+        // Show Preloaded Banner
+        if (itemParam) {
+          const cleanItem = itemParam.trim();
+          const pVal = parseFloat(priceInput.value) || 24;
+          const dVal = discountSlider.value;
+          preloadedTitle.textContent = 'Checking: ' + cleanItem + ' ($' + pVal.toFixed(2) + ' at ' + dVal + '% Off)';
+          preloadedBanner.style.display = 'block';
+
+          // Highlight COGS input for the seller
+          cogsWrapper.classList.add('highlight-focus');
+          cogsHintBadge.style.display = 'block';
+        }
+      }
+    }
+
+    // Initialize and run calculation
+    initUrlParams();
     calculate();
   </script>
 </body>
