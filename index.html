@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Free Black Friday Fee-Trap & Safe-Discount Checker (Etsy & Shopify)</title>
+  <meta name="description" content="Calculate your true net profit after Etsy/Shopify transaction fees, payment processing, and 12-15% Offsite Ads before launching your Black Friday discount.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0A0F1A;
+      --card-bg: rgba(18, 26, 43, 0.85);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.2);
+      --crimson: #EF4444;
+      --crimson-glow: rgba(239, 68, 68, 0.25);
+      --amber: #F59E0B;
+      --amber-glow: rgba(245, 158, 11, 0.2);
+      --cyan: #06B6D4;
+      --cyan-glow: rgba(6, 182, 212, 0.25);
+      --indigo: #6366F1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 14px 140px 14px;
+      line-height: 1.5;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 55%),
+        radial-gradient(circle at 10% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 90% 70%, rgba(239, 68, 68, 0.08) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #FCA5A5;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--crimson);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--crimson);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      color: #FFFFFF;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 16px auto;
+    }
+
+    /* 1-Tap Benchmark Button */
+    .benchmark-bar {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .benchmark-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.18), rgba(99, 102, 241, 0.18));
+      border: 1px solid rgba(6, 182, 212, 0.45);
+      color: #38BDF8;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.15);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .benchmark-btn:hover, .benchmark-btn:active {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(99, 102, 241, 0.3));
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.25);
+    }
+
+    .benchmark-btn .tag {
+      background: rgba(6, 182, 212, 0.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      color: #FFFFFF;
+    }
+
+    /* Main Card */
+    .main-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px 18px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Platform & Mode Selector Tabs */
+    .platform-toggle-container {
+      display: flex;
+      background: rgba(10, 15, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 20px;
+      gap: 4px;
+    }
+
+    .platform-tab {
+      flex: 1;
+      padding: 10px 12px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      background: transparent;
+    }
+
+    .platform-tab.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .platform-tab.etsy.active {
+      background: rgba(249, 115, 22, 0.2);
+      color: #FB923C;
+      border: 1px solid rgba(249, 115, 22, 0.35);
+    }
+
+    .platform-tab.shopify.active {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    /* Input Grid */
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 580px) {
+      .input-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #CBD5E1;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .label-hint {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.72rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .prefix {
+      position: absolute;
+      left: 12px;
+      color: #64748B;
+      font-weight: 600;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      background: rgba(10, 15, 26, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 10px 12px 10px 28px;
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+    }
+
+    /* Slider Box */
+    .slider-box {
+      background: rgba(10, 15, 26, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .slider-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--cyan);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #1E293B;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 14px rgba(6, 182, 212, 0.7);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    /* Offsite Ad Tier Sub-Toggle (Etsy Only) */
+    .ad-tier-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 10px 14px;
+      background: rgba(10, 15, 26, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+    }
+
+    .ad-tier-label {
+      font-size: 0.8rem;
+      color: #94A3B8;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ad-tier-label strong {
+      color: #E2E8F0;
+    }
+
+    .ad-toggle-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .ad-tier-btn {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(15, 23, 42, 0.8);
+      color: #94A3B8;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ad-tier-btn.active {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #FCA5A5;
+    }
+
+    /* Psychological Alert Banner */
+    .alert-banner {
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .alert-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      box-shadow: 0 0 20px var(--crimson-glow);
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 0 20px var(--amber-glow);
+    }
+
+    .alert-safe {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 20px var(--emerald-glow);
+    }
+
+    .alert-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .alert-danger .alert-title { color: #FCA5A5; }
+    .alert-warning .alert-title { color: #FCD34D; }
+    .alert-safe .alert-title { color: #6EE7B7; }
+
+    .alert-desc {
+      font-size: 0.82rem;
+      color: #E2E8F0;
+      line-height: 1.4;
+    }
+
+    /* Two-Column Comparison Grid */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 580px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    .column-card {
+      background: rgba(10, 15, 26, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .column-card.highlight-danger {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .column-card.highlight-safe {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .column-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .col-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #E2E8F0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-hero {
+      text-align: center;
+      padding: 12px 8px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .hero-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .hero-number.loss { color: var(--crimson); text-shadow: 0 0 14px rgba(239, 68, 68, 0.5); }
+    .hero-number.safe { color: var(--emerald); text-shadow: 0 0 14px rgba(16, 185, 129, 0.5); }
+    .hero-number.warn { color: var(--amber); }
+
+    .hero-label {
+      font-size: 0.72rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .metrics-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.8rem;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      color: #94A3B8;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .metric-row span:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .safe-break-box {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+    }
+
+    .safe-break-box.danger-box {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .safe-break-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      color: #6EE7B7;
+      font-size: 0.95rem;
+    }
+
+    .safe-break-box.danger-box .safe-break-val {
+      color: #FCA5A5;
+    }
+
+    /* Detailed Breakdown Collapsible */
+    .breakdown-section {
+      background: rgba(10, 15, 26, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+    }
+
+    .breakdown-header {
+      font-weight: 700;
+      color: #94A3B8;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      color: #94A3B8;
+    }
+
+    .breakdown-row span:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      color: #E2E8F0;
+    }
+
+    .breakdown-row.accent {
+      font-weight: 700;
+      color: #FFFFFF;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 6px;
+      margin-top: 4px;
+    }
+
+    /* Fixed Sticky Bottom CTA */
+    .sticky-bridge {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 680px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      border-radius: 16px;
+      padding: 12px 16px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 25px rgba(16, 185, 129, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    @media (max-width: 600px) {
+      .sticky-bridge {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 10px 12px;
+      }
+    }
+
+    .bridge-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .bridge-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--emerald);
+    }
+
+    .bridge-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 1.25;
+    }
+
+    .bridge-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: #0A0F1A;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .bridge-btn:hover, .bridge-btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #64748B;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <div class="badge">
+        <div class="pulse-dot"></div>
+        BLACK FRIDAY 2026 PROFIT SHIELD
+      </div>
+      <h1>Black Friday Fee & Safe-Discount Checker</h1>
+      <p class="subtitle">See your exact take-home cash after Etsy or Shopify transaction fees, postage, and offsite ad cuts.</p>
+    </header>
+
+    <!-- 1-Tap Example Bar -->
+    <div class="benchmark-bar">
+      <button class="benchmark-btn" id="loadBenchmarkBtn" type="button">
+        ⚡ <span>Load Verified $24 Mug Case</span>
+        <span class="tag">+$1.25 vs -$1.27 Live</span>
+      </button>
+    </div>
+
+    <main class="main-card">
+      <!-- Platform Tabs -->
+      <div class="platform-toggle-container">
+        <button type="button" class="platform-tab etsy active" id="tabEtsy">
+          <span>Etsy Seller Mode</span>
+        </button>
+        <button type="button" class="platform-tab shopify" id="tabShopify">
+          <span>Shopify Mode</span>
+        </button>
+      </div>
+
+      <!-- Offsite Ad Tier Selection (Etsy only) -->
+      <div class="ad-tier-row" id="adTierRow">
+        <div class="ad-tier-label">
+          <strong>Offsite Ads Rate (Attributed Orders)</strong>
+          <span>Applies only when Etsy attributes a sale to an external ad click</span>
+        </div>
+        <div class="ad-toggle-group">
+          <button type="button" class="ad-tier-btn active" id="tier15Btn">15% (&lt;$10k/yr)</button>
+          <button type="button" class="ad-tier-btn" id="tier12Btn">12% (&gt;$10k/yr)</button>
+        </div>
+      </div>
+
+      <!-- Input Grid -->
+      <div class="input-grid">
+        <div class="input-group">
+          <label for="price">Regular Price <span class="label-hint">Retail</span></label>
+          <div class="input-wrapper">
+            <span class="prefix">$</span>
+            <input type="number" id="price" value="24.00" min="1" step="0.50">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="cogs">Item Cost <span class="label-hint">Materials & Box</span></label>
+          <div class="input-wrapper">
+            <span class="prefix">$</span>
+            <input type="number" id="cogs" value="8.50" min="0" step="0.25">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="shipping">Postage Paid <span class="label-hint">By Seller</span></label>
+          <div class="input-wrapper">
+            <span class="prefix">$</span>
+            <input type="number" id="shipping" value="5.00" min="0" step="0.25">
+          </div>
+        </div>
+      </div>
+
+      <!-- Discount Slider -->
+      <div class="slider-box">
+        <div class="slider-header">
+          <label for="discount" style="font-size: 0.85rem; font-weight: 700; color: #FFFFFF;">
+            Planned Black Friday Discount:
+          </label>
+          <span class="slider-val" id="discountVal">30%</span>
+        </div>
+        <input type="range" id="discount" min="0" max="60" value="30" step="1">
+      </div>
+
+      <!-- Dynamic Loss / Profit Psychological Banner -->
+      <div class="alert-banner alert-danger" id="alertBanner">
+        <div class="alert-title" id="alertTitle">
+          ⚠️ CRITICAL ALERT: LOSS DETECTED
+        </div>
+        <div class="alert-desc" id="alertDesc">
+          Loading scenario math...
+        </div>
+      </div>
+
+      <!-- Two-Column Side-by-Side Comparison -->
+      <div class="comparison-grid" id="comparisonGrid">
+        <!-- Column 1: Standard Order -->
+        <div class="column-card highlight-safe" id="colStandardCard">
+          <div class="column-tag" style="color: #6EE7B7;">
+            <span id="col1Badge">Organic / Direct</span>
+            <span>NO AD FEE</span>
+          </div>
+          <div class="col-title" id="col1Title">Standard Order</div>
+
+          <div class="stat-hero">
+            <div class="hero-number safe" id="col1Net">+$1.25</div>
+            <div class="hero-label">Take-Home Cash</div>
+          </div>
+
+          <div class="metrics-list">
+            <div class="metric-row">
+              <span>Sale Price to Buyer:</span>
+              <span id="col1SalePrice">$16.80</span>
+            </div>
+            <div class="metric-row">
+              <span id="col1FeeLabel">Etsy Fees (9.5% + $0.45):</span>
+              <span id="col1FeeVal">-$2.05</span>
+            </div>
+            <div class="metric-row">
+              <span>Net Profit Margin:</span>
+              <span id="col1Margin">+7.5%</span>
+            </div>
+          </div>
+
+          <div class="safe-break-box" id="col1BreakBox">
+            <span>Safe Max Discount (Break-even):</span>
+            <span class="safe-break-val" id="col1SafeDiscount">35%</span>
+          </div>
+        </div>
+
+        <!-- Column 2: Offsite Ad Order -->
+        <div class="column-card highlight-danger" id="colAdCard">
+          <div class="column-tag" style="color: #FCA5A5;">
+            <span id="col2Badge">Ad-Attributed</span>
+            <span id="col2AdRateTag">15% OFFSITE AD</span>
+          </div>
+          <div class="col-title" id="col2Title">Offsite Ad Order</div>
+
+          <div class="stat-hero">
+            <div class="hero-number loss" id="col2Net">-$1.27</div>
+            <div class="hero-label">Take-Home Cash</div>
+          </div>
+
+          <div class="metrics-list">
+            <div class="metric-row">
+              <span>Sale Price to Buyer:</span>
+              <span id="col2SalePrice">$16.80</span>
+            </div>
+            <div class="metric-row">
+              <span id="col2FeeLabel">Total Fees (24.5% + $0.45):</span>
+              <span id="col2FeeVal">-$4.57</span>
+            </div>
+            <div class="metric-row">
+              <span>Net Profit Margin:</span>
+              <span id="col2Margin">-7.5%</span>
+            </div>
+          </div>
+
+          <div class="safe-break-box danger-box" id="col2BreakBox">
+            <span>Safe Max Discount (Break-even):</span>
+            <span class="safe-break-val" id="col2SafeDiscount">23%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cost Summary Line -->
+      <div class="breakdown-section">
+        <div class="breakdown-header">Order Cost Breakdown</div>
+        <div class="breakdown-row">
+          <span>Original List Price:</span>
+          <span id="rowOrigPrice">$24.00</span>
+        </div>
+        <div class="breakdown-row">
+          <span>Black Friday Discount:</span>
+          <span id="rowDiscount">-30% (-$7.20)</span>
+        </div>
+        <div class="breakdown-row">
+          <span>Item Cost (Materials & Box):</span>
+          <span id="rowCogs">-$8.50</span>
+        </div>
+        <div class="breakdown-row">
+          <span>Postage Paid by Seller:</span>
+          <span id="rowShipping">-$5.00</span>
+        </div>
+        <div class="breakdown-row accent">
+          <span>Customer Checkout Total:</span>
+          <span id="rowFinalSale">$16.80</span>
+        </div>
+      </div>
+    </main>
+
+    <p class="footer-note">Client-Side Calculation • No Email Required • Tested Against Official 2026 Fee Schedules</p>
+  </div>
+
+  <!-- Bottom Sticky Bridge CTA -->
+  <aside class="sticky-bridge">
+    <div class="bridge-content">
+      <span class="bridge-tag">⚡ BFCM PROFIT-SHIELD ENGINE</span>
+      <span class="bridge-text">Check 50 products at once + get 7 Black Friday emails ($19 Launch Offer — saves $10 through Dec 1)</span>
+    </div>
+    <a href="https://kamranite865.gumroad.com/l/bfcm-profit-margin-calculator/BFCM19?utm_source=github_tool&utm_medium=free_calc&utm_campaign=bfcm_2026" class="bridge-btn" id="gumroadBridgeBtn" target="_blank" rel="noopener">
+      Get Multi-SKU Shield ($19) →
+    </a>
+  </aside>
+
+  <script>
+    // State
+    let currentPlatform = 'etsy'; // 'etsy' or 'shopify'
+    let offsiteRate = 0.15; // 0.15 or 0.12
+
+    // DOM Elements
+    const priceInput = document.getElementById('price');
+    const cogsInput = document.getElementById('cogs');
+    const shippingInput = document.getElementById('shipping');
+    const discountSlider = document.getElementById('discount');
+    const discountVal = document.getElementById('discountVal');
+
+    const tabEtsy = document.getElementById('tabEtsy');
+    const tabShopify = document.getElementById('tabShopify');
+    const adTierRow = document.getElementById('adTierRow');
+    const tier15Btn = document.getElementById('tier15Btn');
+    const tier12Btn = document.getElementById('tier12Btn');
+    const loadBenchmarkBtn = document.getElementById('loadBenchmarkBtn');
+
+    const alertBanner = document.getElementById('alertBanner');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertDesc = document.getElementById('alertDesc');
+
+    // Column 1
+    const col1Card = document.getElementById('colStandardCard');
+    const col1Badge = document.getElementById('col1Badge');
+    const col1Title = document.getElementById('col1Title');
+    const col1Net = document.getElementById('col1Net');
+    const col1SalePrice = document.getElementById('col1SalePrice');
+    const col1FeeLabel = document.getElementById('col1FeeLabel');
+    const col1FeeVal = document.getElementById('col1FeeVal');
+    const col1Margin = document.getElementById('col1Margin');
+    const col1SafeDiscount = document.getElementById('col1SafeDiscount');
+    const col1BreakBox = document.getElementById('col1BreakBox');
+
+    // Column 2
+    const col2Card = document.getElementById('colAdCard');
+    const col2Badge = document.getElementById('col2Badge');
+    const col2Title = document.getElementById('col2Title');
+    const col2AdRateTag = document.getElementById('col2AdRateTag');
+    const col2Net = document.getElementById('col2Net');
+    const col2SalePrice = document.getElementById('col2SalePrice');
+    const col2FeeLabel = document.getElementById('col2FeeLabel');
+    const col2FeeVal = document.getElementById('col2FeeVal');
+    const col2Margin = document.getElementById('col2Margin');
+    const col2SafeDiscount = document.getElementById('col2SafeDiscount');
+    const col2BreakBox = document.getElementById('col2BreakBox');
+
+    // Breakdown Elements
+    const rowOrigPrice = document.getElementById('rowOrigPrice');
+    const rowDiscount = document.getElementById('rowDiscount');
+    const rowCogs = document.getElementById('rowCogs');
+    const rowShipping = document.getElementById('rowShipping');
+    const rowFinalSale = document.getElementById('rowFinalSale');
+
+    function formatMoney(num) {
+      const sign = num < 0 ? '-$' : '+$';
+      return sign + Math.abs(num).toFixed(2);
+    }
+
+    function calculate() {
+      const origPrice = parseFloat(priceInput.value) || 0;
+      const cogs = parseFloat(cogsInput.value) || 0;
+      const shipping = parseFloat(shippingInput.value) || 0;
+      const discountPct = parseInt(discountSlider.value, 10);
+
+      discountVal.textContent = discountPct + '%';
+      const discountAmount = origPrice * (discountPct / 100);
+      const salePrice = Math.max(0, origPrice - discountAmount);
+
+      rowOrigPrice.textContent = '$' + origPrice.toFixed(2);
+      rowDiscount.textContent = '-' + discountPct + '% (-$' + discountAmount.toFixed(2) + ')';
+      rowCogs.textContent = '-$' + cogs.toFixed(2);
+      rowShipping.textContent = '-$' + shipping.toFixed(2);
+      rowFinalSale.textContent = '$' + salePrice.toFixed(2);
+
+      if (currentPlatform === 'etsy') {
+        // Etsy Mode:
+        // Base Etsy US: $0.20 listing + 6.5% transaction + 3% + $0.25 processing = 9.5% + $0.45
+        const stdFeeRate = 0.095;
+        const stdFixed = 0.45;
+        const stdFees = (salePrice * stdFeeRate) + stdFixed;
+        const stdNet = salePrice - cogs - shipping - stdFees;
+        const stdMargin = salePrice > 0 ? (stdNet / salePrice) * 100 : 0;
+
+        // Break-even for Standard
+        const stdDenom = 1 - stdFeeRate; // 0.905
+        const stdBreakEvenPrice = (cogs + shipping + stdFixed) / stdDenom;
+        const stdSafeMax = origPrice > 0 ? Math.max(0, Math.floor(((origPrice - stdBreakEvenPrice) / origPrice) * 100)) : 0;
+
+        // Offsite Ad Order:
+        const adFeeRate = stdFeeRate + offsiteRate; // 0.245 or 0.215
+        const adFees = (salePrice * adFeeRate) + stdFixed;
+        const adNet = salePrice - cogs - shipping - adFees;
+        const adMargin = salePrice > 0 ? (adNet / salePrice) * 100 : 0;
+
+        // Break-even for Offsite Ad
+        const adDenom = 1 - adFeeRate; // 0.755 (15%) or 0.785 (12%)
+        const adBreakEvenPrice = (cogs + shipping + stdFixed) / adDenom;
+        const adSafeMax = origPrice > 0 ? Math.max(0, Math.floor(((origPrice - adBreakEvenPrice) / origPrice) * 100)) : 0;
+
+        // Render Col 1 (Standard Etsy)
+        col1Card.style.display = 'flex';
+        col1Badge.textContent = 'Organic / Direct';
+        col1Title.textContent = 'Standard Etsy Order';
+        col1Net.textContent = formatMoney(stdNet);
+        col1Net.className = 'hero-number ' + (stdNet < 0 ? 'loss' : (stdMargin < 15 ? 'warn' : 'safe'));
+        col1SalePrice.textContent = '$' + salePrice.toFixed(2);
+        col1FeeLabel.textContent = 'Etsy Base Fees (9.5% + $0.45):';
+        col1FeeVal.textContent = '-$' + stdFees.toFixed(2);
+        col1Margin.textContent = (stdMargin >= 0 ? '+' : '') + stdMargin.toFixed(1) + '%';
+        col1SafeDiscount.textContent = stdSafeMax + '%';
+        col1BreakBox.className = 'safe-break-box ' + (stdNet < 0 ? 'danger-box' : '');
+
+        // Render Col 2 (Offsite Ad)
+        col2Card.style.display = 'flex';
+        col2Badge.textContent = 'Ad-Attributed';
+        const pctLabel = (offsiteRate * 100).toFixed(0) + '%';
+        col2AdRateTag.textContent = pctLabel + ' OFFSITE AD';
+        col2Title.textContent = 'Etsy + ' + pctLabel + ' Ad Order';
+        col2Net.textContent = formatMoney(adNet);
+        col2Net.className = 'hero-number ' + (adNet < 0 ? 'loss' : (adMargin < 15 ? 'warn' : 'safe'));
+        col2SalePrice.textContent = '$' + salePrice.toFixed(2);
+        col2FeeLabel.textContent = 'Total Fees (' + ((adFeeRate * 100).toFixed(1)) + '% + $0.45):';
+        col2FeeVal.textContent = '-$' + adFees.toFixed(2);
+        col2Margin.textContent = (adMargin >= 0 ? '+' : '') + adMargin.toFixed(1) + '%';
+        col2SafeDiscount.textContent = adSafeMax + '%';
+        col2BreakBox.className = 'safe-break-box ' + (adNet < 0 ? 'danger-box' : '');
+
+        // Update Psychological Alert Banner
+        alertBanner.className = 'alert-banner';
+        if (adNet < 0 && stdNet >= 0) {
+          alertBanner.classList.add('alert-danger');
+          alertTitle.innerHTML = '🚨 AD ATTRIBUTION TRAP: LOSS OF ' + formatMoney(adNet) + ' PER SALE';
+          alertDesc.innerHTML = 'Your standard orders clear <strong>' + formatMoney(stdNet) + '</strong> profit, but if Etsy attributes the order to an Offsite Ad (' + pctLabel + '), you <strong>lose ' + formatMoney(adNet) + '</strong> per box. Your Safe Max Discount is <strong>' + adSafeMax + '%</strong>.';
+        } else if (adNet < 0 && stdNet < 0) {
+          alertBanner.classList.add('alert-danger');
+          alertTitle.innerHTML = '🚨 CRITICAL LOSS ON ALL ORDERS: ' + formatMoney(stdNet);
+          alertDesc.innerHTML = 'At ' + discountPct + '% off, even your standard orders lose money before advertising. Lower your discount to under <strong>' + stdSafeMax + '%</strong> immediately.';
+        } else if (adMargin < 15) {
+          alertBanner.classList.add('alert-warning');
+          alertTitle.innerHTML = '⚠️ THIN MARGIN WARNING: ONLY ' + formatMoney(adNet) + ' PROFIT ON AD SALES';
+          alertDesc.innerHTML = 'One customer return or damaged package will wipe out the profit of your last 5 sales. Consider bundling items rather than discounting individual units.';
+        } else {
+          alertBanner.classList.add('alert-safe');
+          alertTitle.innerHTML = '✅ HEALTHY PROFIT ZONE: ' + formatMoney(stdNet) + ' (STANDARD) / ' + formatMoney(adNet) + ' (ADS)';
+          alertDesc.innerHTML = 'You remain profitable across both organic and ad-attributed sales at ' + discountPct + '% off.';
+        }
+
+      } else {
+        // Shopify Mode:
+        // Processing: 2.9% + $0.30, zero marketplace take rate
+        const shopifyRate = 0.029;
+        const shopifyFixed = 0.30;
+        const shopifyFees = (salePrice * shopifyRate) + shopifyFixed;
+        const shopifyNet = salePrice - cogs - shipping - shopifyFees;
+        const shopifyMargin = salePrice > 0 ? (shopifyNet / salePrice) * 100 : 0;
+
+        const shopifyDenom = 1 - shopifyRate; // 0.971
+        const shopifyBreakEvenPrice = (cogs + shipping + shopifyFixed) / shopifyDenom;
+        const shopifySafeMax = origPrice > 0 ? Math.max(0, Math.floor(((origPrice - shopifyBreakEvenPrice) / origPrice) * 100)) : 0;
+
+        // Render Col 1 (Shopify Basic)
+        col1Badge.textContent = 'Shopify Basic';
+        col1Title.textContent = 'Direct Storefront Order';
+        col1Net.textContent = formatMoney(shopifyNet);
+        col1Net.className = 'hero-number ' + (shopifyNet < 0 ? 'loss' : (shopifyMargin < 15 ? 'warn' : 'safe'));
+        col1SalePrice.textContent = '$' + salePrice.toFixed(2);
+        col1FeeLabel.textContent = 'Payment Processing (2.9% + $0.30):';
+        col1FeeVal.textContent = '-$' + shopifyFees.toFixed(2);
+        col1Margin.textContent = (shopifyMargin >= 0 ? '+' : '') + shopifyMargin.toFixed(1) + '%';
+        col1SafeDiscount.textContent = shopifySafeMax + '%';
+        col1BreakBox.className = 'safe-break-box ' + (shopifyNet < 0 ? 'danger-box' : '');
+
+        // Render Col 2 (Shopify Advantage vs Etsy)
+        col2Badge.textContent = 'Advantage vs Etsy';
+        col2AdRateTag.textContent = 'ZERO TAKE RATE';
+        col2Title.textContent = 'Shopify vs Etsy Comparison';
+        const etsyStdFees = (salePrice * 0.095) + 0.45;
+        const etsyNet = salePrice - cogs - shipping - etsyStdFees;
+        const savedMoney = shopifyNet - etsyNet;
+
+        col2Net.textContent = formatMoney(savedMoney);
+        col2Net.className = 'hero-number safe';
+        col2SalePrice.textContent = '$' + salePrice.toFixed(2);
+        col2FeeLabel.textContent = 'Fees Saved vs Etsy Base:';
+        col2FeeVal.textContent = '+$' + (etsyStdFees - shopifyFees).toFixed(2);
+        col2Margin.textContent = '+' + ((shopifyNet / salePrice) * 100).toFixed(1) + '% Margin';
+        col2SafeDiscount.textContent = shopifySafeMax + '%';
+        col2BreakBox.className = 'safe-break-box';
+
+        // Update Psychological Alert Banner for Shopify
+        alertBanner.className = 'alert-banner';
+        if (shopifyNet < 0) {
+          alertBanner.classList.add('alert-danger');
+          alertTitle.innerHTML = '🚨 LOSS DETECTED: ' + formatMoney(shopifyNet) + ' PER SALE';
+          alertDesc.innerHTML = 'At ' + discountPct + '% off, your product cost and postage exceed what the customer is paying. Your Safe Max Discount is <strong>' + shopifySafeMax + '%</strong>.';
+        } else if (shopifyMargin < 15) {
+          alertBanner.classList.add('alert-warning');
+          alertTitle.innerHTML = '⚠️ THIN MARGIN: ' + formatMoney(shopifyNet) + ' (' + shopifyMargin.toFixed(1) + '%)';
+          alertDesc.innerHTML = 'You are clearing profit, but customer acquisition costs or packaging overhead may erase this.';
+        } else {
+          alertBanner.classList.add('alert-safe');
+          alertTitle.innerHTML = '✅ SAFE STOREFRONT PROFIT: ' + formatMoney(shopifyNet) + ' PER SALE (' + shopifyMargin.toFixed(1) + '%)';
+          alertDesc.innerHTML = 'Zero marketplace fees keep more cash in your bank on your own domain.';
+        }
+      }
+    }
+
+    // Benchmark Button
+    loadBenchmarkBtn.addEventListener('click', () => {
+      currentPlatform = 'etsy';
+      offsiteRate = 0.15;
+      tabEtsy.classList.add('active');
+      tabShopify.classList.remove('active');
+      adTierRow.style.display = 'flex';
+      tier15Btn.classList.add('active');
+      tier12Btn.classList.remove('active');
+
+      priceInput.value = '24.00';
+      cogsInput.value = '8.50';
+      shippingInput.value = '5.00';
+      discountSlider.value = '30';
+
+      calculate();
+    });
+
+    // Tab Switches
+    tabEtsy.addEventListener('click', () => {
+      currentPlatform = 'etsy';
+      tabEtsy.classList.add('active');
+      tabShopify.classList.remove('active');
+      adTierRow.style.display = 'flex';
+      calculate();
+    });
+
+    tabShopify.addEventListener('click', () => {
+      currentPlatform = 'shopify';
+      tabShopify.classList.add('active');
+      tabEtsy.classList.remove('active');
+      adTierRow.style.display = 'none';
+      calculate();
+    });
+
+    // Tier Switches
+    tier15Btn.addEventListener('click', () => {
+      offsiteRate = 0.15;
+      tier15Btn.classList.add('active');
+      tier12Btn.classList.remove('active');
+      calculate();
+    });
+
+    tier12Btn.addEventListener('click', () => {
+      offsiteRate = 0.12;
+      tier12Btn.classList.add('active');
+      tier15Btn.classList.remove('active');
+      calculate();
+    });
+
+    // Event listeners
+    priceInput.addEventListener('input', calculate);
+    cogsInput.addEventListener('input', calculate);
+    shippingInput.addEventListener('input', calculate);
+    discountSlider.addEventListener('input', calculate);
+
+    // Initial calculation
+    calculate();
+  </script>
+</body>
+</html>
