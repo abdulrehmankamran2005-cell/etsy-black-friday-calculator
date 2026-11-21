@@ -757,6 +757,174 @@
       color: #64748B;
       margin-top: 18px;
     }
+  
+    /* HACK #1: Viral Share & Canvas PNG Alert Card */
+    .share-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 580px) {
+      .share-actions-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .share-btn {
+      background: #1E293B;
+      color: #E2E8F0;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .share-btn:hover {
+      background: #334155;
+      border-color: #475569;
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .share-btn.download-btn {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+      border-color: rgba(59, 130, 246, 0.5);
+      color: #93C5FD;
+    }
+
+    .share-btn.download-btn:hover {
+      background: rgba(59, 130, 246, 0.35);
+      border-color: #60A5FA;
+      color: #FFFFFF;
+    }
+
+    .copy-toast {
+      background: #10B981;
+      color: #0A0F1A;
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 8px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    /* HACK #3: 5-Niche Danger Table */
+    .danger-table-container {
+      background: #0D1525;
+      border: 1px solid #1E293B;
+      border-radius: 14px;
+      padding: 20px 18px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+
+    .danger-table-header {
+      margin-bottom: 14px;
+    }
+
+    .danger-table-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #F8FAFC;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .danger-table-desc {
+      font-size: 0.78rem;
+      color: #94A3B8;
+      margin-top: 3px;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .niche-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      text-align: left;
+    }
+
+    .niche-table th {
+      background: #111B2E;
+      color: #94A3B8;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      padding: 10px 12px;
+      border-bottom: 1px solid #1E293B;
+      white-space: nowrap;
+    }
+
+    .niche-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #CBD5E1;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .niche-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .profit-val-green {
+      color: #34D399;
+      font-weight: 800;
+      font-family: var(--font-mono);
+    }
+
+    .profit-val-red {
+      color: #F87171;
+      font-weight: 800;
+      font-family: var(--font-mono);
+    }
+
+    .safe-tag {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60A5FA;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+
+    .load-niche-btn {
+      background: #1E293B;
+      color: #FFFFFF;
+      border: 1px solid #334155;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .load-niche-btn:hover {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #0A0F1A;
+    }
+
   </style>
 </head>
 <body>
@@ -932,6 +1100,17 @@
         </div>
       </div>
 
+      <!-- HACK #1: Viral Share & Canvas PNG Alert Card -->
+      <div class="share-actions-row">
+        <button type="button" class="share-btn" id="btnCopyBreakdown" onclick="copyLossBreakdown()">
+          📋 Copy Loss Breakdown (Warn Seller Friends)
+        </button>
+        <button type="button" class="share-btn download-btn" id="btnDownloadCard" onclick="downloadAlertCard()">
+          🖼️ Download Alert Card (PNG)
+        </button>
+      </div>
+      <div id="copyToast" class="copy-toast" style="display: none;">Breakdown copied to clipboard!</div>
+
       <!-- Cost Summary Line & Hidden Shipping Fee Exposer -->
       <div class="breakdown-section">
         <div class="breakdown-header">
@@ -964,6 +1143,76 @@
           <span id="rowFinalSale">$16.80</span>
         </div>
       </div>
+
+      <!-- HACK #3: 2026 Etsy Black Friday 5-Niche Danger Table -->
+      <section class="danger-table-container">
+        <div class="danger-table-header">
+          <h3 class="danger-table-title">⚡ 2026 Etsy Black Friday 5-Niche Danger Table</h3>
+          <p class="danger-table-desc">Verified break-even limits under 15% Offsite Ads. Click "Load" to test any benchmark instantly.</p>
+        </div>
+        <div class="table-scroll">
+          <table class="niche-table">
+            <thead>
+              <tr>
+                <th>Benchmark Niche</th>
+                <th>Discount</th>
+                <th>Costs (COGS + Ship)</th>
+                <th>Standard Net</th>
+                <th>15% Ad Net</th>
+                <th>Safe Max %</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>$24 Ceramic Mug</strong></td>
+                <td>30% Off ($16.80)</td>
+                <td>$8.50 cost + $5.00 ship</td>
+                <td class="profit-val-green">+$1.25</td>
+                <td class="profit-val-red">-$1.27</td>
+                <td><span class="safe-tag">23%</span></td>
+                <td><button type="button" class="load-niche-btn" onclick="loadNiche(24, 30, 8.50, 5.00, 'Ceramic Mug')">Load</button></td>
+              </tr>
+              <tr>
+                <td><strong>$32 Soy Candle</strong></td>
+                <td>30% Off ($22.40)</td>
+                <td>$10.00 cost + $6.50 ship</td>
+                <td class="profit-val-green">+$3.32</td>
+                <td class="profit-val-red">-$0.04</td>
+                <td><span class="safe-tag">29%</span></td>
+                <td><button type="button" class="load-niche-btn" onclick="loadNiche(32, 30, 10.00, 6.50, 'Soy Candle')">Load</button></td>
+              </tr>
+              <tr>
+                <td><strong>$44 Embroidered Sweatshirt</strong></td>
+                <td>35% Off ($28.60)</td>
+                <td>$16.50 cost + $6.50 ship</td>
+                <td class="profit-val-green">+$2.43</td>
+                <td class="profit-val-red">-$1.86</td>
+                <td><span class="safe-tag">29%</span></td>
+                <td><button type="button" class="load-niche-btn" onclick="loadNiche(44, 35, 16.50, 6.50, 'Embroidered Sweatshirt')">Load</button></td>
+              </tr>
+              <tr>
+                <td><strong>$18 Art Print</strong></td>
+                <td>35% Off ($11.70)</td>
+                <td>$4.50 cost + $4.50 ship</td>
+                <td class="profit-val-green">+$1.14</td>
+                <td class="profit-val-red">-$0.62</td>
+                <td><span class="safe-tag">30%</span></td>
+                <td><button type="button" class="load-niche-btn" onclick="loadNiche(18, 35, 4.50, 4.50, 'Art Print')">Load</button></td>
+              </tr>
+              <tr>
+                <td><strong>$38 Handmade Necklace</strong></td>
+                <td>35% Off ($24.70)</td>
+                <td>$12.00 cost + $5.00 ship</td>
+                <td class="profit-val-green">+$4.90</td>
+                <td class="profit-val-green">+$1.20</td>
+                <td><span class="safe-tag">39%</span></td>
+                <td><button type="button" class="load-niche-btn" onclick="loadNiche(38, 35, 12.00, 5.00, 'Handmade Necklace')">Load</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
 
     <p class="footer-note">Client-Side Calculation • No Email Required • 100% Private In-Browser Math</p>
@@ -1316,6 +1565,202 @@
     // Initialize and run calculation
     initUrlParams();
     calculate();
+
+    // Load Niche Benchmark
+    function loadNiche(price, discount, cogs, shipping, itemName) {
+      currentPlatform = 'etsy';
+      tabEtsy.classList.add('active');
+      tabShopify.classList.remove('active');
+      adTierRow.style.display = 'flex';
+
+      priceInput.value = price.toFixed(2);
+      cogsInput.value = cogs.toFixed(2);
+      shippingInput.value = shipping.toFixed(2);
+      discountSlider.value = discount;
+      discountVal.textContent = discount + '%';
+
+      if (itemName) {
+        preloadedTitle.textContent = 'Checking: ' + itemName + ' ($' + price.toFixed(2) + ' at ' + discount + '% Off)';
+        preloadedBanner.style.display = 'block';
+      }
+
+      calculate();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Copy Loss Breakdown to Clipboard
+    function copyLossBreakdown() {
+      const p = parseFloat(priceInput.value) || 24;
+      const d = parseInt(discountSlider.value, 10);
+      const c = parseFloat(cogsInput.value) || 0;
+      const s = parseFloat(shippingInput.value) || 0;
+      const sale = p * (1 - (d / 100));
+
+      const stdNet = col1Net.textContent;
+      const adNet = col2Net.textContent;
+      const safeAdDisc = col2SafeDiscount.textContent;
+
+      const itemName = preloadedTitle.textContent ? preloadedTitle.textContent.replace('Checking: ', '').split(' (')[0] : 'Item';
+
+      const text = 'Black Friday Fee Check for ' + itemName + ' ($' + p.toFixed(2) + ' at ' + d + '% Off):\n' +
+        '• Checkout Price: $' + sale.toFixed(2) + '\n' +
+        '• Standard Net Profit: ' + stdNet + '\n' +
+        '• 15% Offsite Ad Order: ' + adNet + '\n' +
+        '• Safe Max Discount: ' + safeAdDisc + '\n' +
+        'Tested privately, no login: https://abdulrehmankamran2005-cell.github.io/etsy-black-friday-calculator/?src=shared_card';
+
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('copyToast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2200);
+      });
+    }
+
+    // Download Alert Card (PNG via HTML5 Canvas)
+    function downloadAlertCard() {
+      const p = parseFloat(priceInput.value) || 24;
+      const d = parseInt(discountSlider.value, 10);
+      const sale = p * (1 - (d / 100));
+      const stdNet = col1Net.textContent;
+      const adNet = col2Net.textContent;
+      const safeAdDisc = col2SafeDiscount.textContent;
+      const itemName = preloadedTitle.textContent ? preloadedTitle.textContent.replace('Checking: ', '').split(' (')[0] : 'Black Friday Product';
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      const ctx = canvas.getContext('2d');
+
+      // 1. Background gradient (Obsidian dark)
+      const bgGrad = ctx.createLinearGradient(0, 0, 1080, 1080);
+      bgGrad.addColorStop(0, '#090D16');
+      bgGrad.addColorStop(0.5, '#0F172A');
+      bgGrad.addColorStop(1, '#050811');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1080, 1080);
+
+      // Outer border
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(30, 30, 1020, 1020);
+
+      // Inner accent frame
+      const isLoss = adNet.includes('-');
+      ctx.strokeStyle = isLoss ? 'rgba(239, 68, 68, 0.4)' : 'rgba(16, 185, 129, 0.4)';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(45, 45, 990, 990);
+
+      // 2. Header Badge
+      ctx.fillStyle = isLoss ? '#EF4444' : '#10B981';
+      ctx.font = 'bold 28px sans-serif';
+      ctx.fillText('⚡ 2026 ETSY BLACK FRIDAY PROFIT AUDIT', 80, 110);
+
+      // 3. Main Product Title
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '800 52px sans-serif';
+      const displayTitle = itemName.length > 28 ? itemName.substring(0, 26) + '...' : itemName;
+      ctx.fillText(displayTitle, 80, 185);
+
+      // Pricing subtitle
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '600 32px sans-serif';
+      ctx.fillText('Original: $' + p.toFixed(2) + '  |  ' + d + '% Off  |  Customer Pays: $' + sale.toFixed(2), 80, 240);
+
+      // Divider line
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(80, 280);
+      ctx.lineTo(1000, 280);
+      ctx.stroke();
+
+      // 4. Two Comparison Stat Boxes
+      // Box 1: Standard Order
+      ctx.fillStyle = '#111827';
+      ctx.fillRect(80, 320, 440, 380);
+      ctx.strokeStyle = '#10B981';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(80, 320, 440, 380);
+
+      ctx.fillStyle = '#34D399';
+      ctx.font = 'bold 24px sans-serif';
+      ctx.fillText('STANDARD ORDER', 110, 370);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '600 22px sans-serif';
+      ctx.fillText('No Offsite Ad Cut', 110, 405);
+
+      ctx.fillStyle = '#10B981';
+      ctx.font = '800 68px monospace';
+      ctx.fillText(stdNet, 110, 520);
+
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '500 22px sans-serif';
+      ctx.fillText('Net Take-Home Cash', 110, 570);
+      ctx.fillText('Break-even limit: ' + col1SafeDiscount.textContent, 110, 640);
+
+      // Box 2: 15% Offsite Ad Order
+      ctx.fillStyle = '#111827';
+      ctx.fillRect(560, 320, 440, 380);
+      ctx.strokeStyle = isLoss ? '#EF4444' : '#10B981';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(560, 320, 440, 380);
+
+      ctx.fillStyle = isLoss ? '#F87171' : '#34D399';
+      ctx.font = 'bold 24px sans-serif';
+      ctx.fillText('OFFSITE AD ORDER', 590, 370);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '600 22px sans-serif';
+      ctx.fillText('15% Ad Attribution', 590, 405);
+
+      ctx.fillStyle = isLoss ? '#EF4444' : '#10B981';
+      ctx.font = '800 68px monospace';
+      ctx.fillText(adNet, 590, 520);
+
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '500 22px sans-serif';
+      ctx.fillText(isLoss ? 'Net Out-of-Pocket Loss' : 'Net Take-Home Cash', 590, 570);
+      ctx.fillStyle = '#FCD34D';
+      ctx.font = 'bold 24px sans-serif';
+      ctx.fillText('Safe Max Discount: ' + safeAdDisc, 590, 640);
+
+      // 5. Warning Callout Banner
+      ctx.fillStyle = isLoss ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)';
+      ctx.fillRect(80, 740, 920, 160);
+      ctx.strokeStyle = isLoss ? '#EF4444' : '#10B981';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(80, 740, 920, 160);
+
+      ctx.fillStyle = isLoss ? '#FCA5A5' : '#6EE7B7';
+      ctx.font = 'bold 26px sans-serif';
+      ctx.fillText(isLoss ? '⚠️ PLATFORM FEE TRAP WARNING' : '✅ SAFE DISCOUNT MARGIN CONFIRMED', 110, 790);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '500 22px sans-serif';
+      if (isLoss) {
+        ctx.fillText('Etsy takes transaction + processing fees on your item AND buyer shipping.', 110, 830);
+        ctx.fillText('Discounts over ' + safeAdDisc + ' turn ad-driven sales into cash losses.', 110, 865);
+      } else {
+        ctx.fillText('This discount leaves positive profit even if an Offsite Ad attributes the sale.', 110, 830);
+        ctx.fillText('Maximum safe discount threshold is ' + safeAdDisc + ' before negative margins.', 110, 865);
+      }
+
+      // 6. Watermark Footer
+      ctx.fillStyle = '#64748B';
+      ctx.font = '600 20px sans-serif';
+      ctx.fillText('100% Private In-Browser Math • Zero Login • Zero Email', 80, 970);
+      ctx.fillStyle = '#38BDF8';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText('abdulrehmankamran2005-cell.github.io/etsy-black-friday-calculator', 80, 1010);
+
+      // Trigger download
+      const link = document.createElement('a');
+      link.download = 'etsy-fee-alert-' + itemName.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
   </script>
 </body>
 </html>
